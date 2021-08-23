@@ -2,20 +2,23 @@ import React, { Component } from "react"
 
 class BookShelf extends React.Component {
   state ={
-    value: this.props.shelfHeading
+    value: this.props.book
   }
-  handleBookChange = event => {
-    debugger
+  
+  handleBookChange = (event, book) => {
+  
     const { value } = event.target;
-    this.setState({ value });
-    this.props.onUpdate(this.props.books, value);
+  
+    this.props.updateBook(book,value);
+    
+    //this.props.fetchBookById(value); 
   };
     render()
     
     {
       const theBookshelf= this.props.books;
-      console.log("yo", theBookshelf)
-
+        console.log('the books', theBookshelf)
+    
     
         return(
 
@@ -33,7 +36,7 @@ class BookShelf extends React.Component {
   <div className="book-top">
     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})`}}></div>
     <div className="book-shelf-changer">
-      <select value = {book.shelf} onChange={this.handleBookChange}>
+      <select value = {book.shelf} onChange={(event)=>this.handleBookChange (event,book)}>
         
         <option value="move" disabled>Move to...</option>
         <option value="currentlyReading">Currently Reading</option>

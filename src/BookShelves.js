@@ -23,8 +23,10 @@ class BookShelves extends React.Component{
     //   };
 
     render(){
+        const book = this.props.book;
+        const updateBook = this.props.updateBook;
         const books=  this.props.books
-        console.log('books', books) 
+      
         const currentlyReading = books.filter(book=>book.shelf === 'currentlyReading')
         const wantToRead= books.filter(book=>book.shelf === 'wantToRead')
         const read= books.filter(book=>book.shelf === 'read')
@@ -34,14 +36,14 @@ class BookShelves extends React.Component{
                     <Header/>
               <div>
          {/* currentlyReading */}
-          <BookShelf  onUpdate ={this.props.onUpdate} books={currentlyReading} shelfHeading ={"Currently Reading"}/> 
+          <BookShelf fetchBookById ={this.fetchBookById}  book={book} updateBook ={updateBook} books={currentlyReading} shelfHeading ={"Currently Reading"}/> 
          
           
           
           {/* want to Read */}
-          <BookShelf onUpdate ={this.props.onUpdate} books = {wantToRead}  shelfHeading ={"Want to Read"}/>
+          <BookShelf fetchBookById ={this.fetchBookById}  book={book}  updateBook ={updateBook} books = {wantToRead}  shelfHeading ={"Want to Read"}/>
           {/* Read */}
-          <BookShelf onUpdate ={this.props.onUpdate} books ={read} shelfHeading ={" Read"}/>
+          <BookShelf  book={book}  updateBook ={updateBook} books ={read} shelfHeading ={" Read"}/>
                 
                </div>
                </div>

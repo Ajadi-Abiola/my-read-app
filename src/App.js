@@ -17,8 +17,19 @@ class BooksApp extends React.Component {
      */
     showSearchPage: false,
     books: [],
+    book:'',
     bookSearch:[],
+    isLoading: false
    
+  }
+
+  updateSearchQuery=(query) =>{
+    BooksAPI.search(query) .then(response=>{
+      this.setState(()=>({
+       bookSearch:response
+      }))
+    })
+    
   }
 
 // updateSearch = (state) =>
@@ -44,27 +55,46 @@ class BooksApp extends React.Component {
 
 fetchAllBooks() {
   BooksAPI.getAll().then((response) => {
-    this.setState({ books: response });
+
+    this.setState({ books: response, isLoading:false });
   });
+}
+fetchBookById(bookId){
+  BooksAPI.get(bookId).then((response) =>{
+    this.setState({book:response})
+
+  })
 }
 
 componentDidMount() {
   this.fetchAllBooks();
 }
 
+componentDidUpdate(prevProps , prevState){
+  if(this.state.isLoading !== prevState.isLoading){
+    this.fetchAllBooks()
+  }
+
+}
+
+
 updateBook = (book, shelf) => {
+  
   BooksAPI.update(book, shelf).then(() => {
-    this.fetchAllBooks();
+   this.setState({isLoading:true})
   });
 };
 
   render() {
+    const book = this.props.book;
     return (
+     
       <div className="app">
         {/* {this.state.showSearchPage ? ( */}
           
         {/* ) : ( */}
           <div className="list-books">
+          
           
 
 
@@ -76,14 +106,17 @@ updateBook = (book, shelf) => {
        exact path="/"
         render={() => (
         
-        <BookShelves books={this.state.books} OnUpdate={this.updateBook}/>)}
+        <BookShelves fetchBookById ={this.fetchBookById} book={book}  books={this.state.books} updateBook={this.updateBook}/>)}
       />
         <Route
         path="/search"
         render={() => (
 
-        <Search books={this.state.books}
+        <Search books={this.state.bookSearch}
         OnRestoreSearch = {this.restoreSearch}
+        updateBook={this.updateBook}
+        updateSearchQuery={this.updateSearchQuery}
+
     
         />
         )}/>
