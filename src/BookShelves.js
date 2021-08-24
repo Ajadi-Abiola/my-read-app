@@ -3,25 +3,9 @@ import BookShelf from "./BookShelf";
 import Header from "./Header";
 import SearchButton from "./SearchButton";
 
-import * as BooksAPI from './BooksAPI'
-class BookShelves extends React.Component{
-    // state = {
-    //     books:this.props.books
-    // }
-    // updateBook = (book, shelf) =>{
-    //     BooksAPI.update(book,shelf)
-    //     if (shelf === 'none') {
-    //       this.setState(prevState => ({
-    //         books: prevState.books.filter(b => b.id !== book.id)
-    //       }));
-    //     } else {
-    //       book.shelf = shelf;
-    //       this.setState(prevState => ({
-    //         books: prevState.books.filter(b => b.id !== book.id).concat(book)
-    //       }));
-    //     }
-    //   };
 
+class BookShelves extends React.Component{
+    
     render(){
         const book = this.props.book;
         const updateBook = this.props.updateBook;
@@ -31,25 +15,21 @@ class BookShelves extends React.Component{
         const wantToRead= books.filter(book=>book.shelf === 'wantToRead')
         const read= books.filter(book=>book.shelf === 'read')
         return(
-            <div>
-                <div className="list-books-content">
+        <div>
+            <div className="list-books-content">
                     <Header/>
-              <div>
-         {/* currentlyReading */}
-          <BookShelf fetchBookById ={this.fetchBookById}  book={book} updateBook ={updateBook} books={currentlyReading} shelfHeading ={"Currently Reading"}/> 
-         
-          
-          
-          {/* want to Read */}
-          <BookShelf fetchBookById ={this.fetchBookById}  book={book}  updateBook ={updateBook} books = {wantToRead}  shelfHeading ={"Want to Read"}/>
-          {/* Read */}
-          <BookShelf  book={book}  updateBook ={updateBook} books ={read} shelfHeading ={" Read"}/>
+                <div>
+                    { /* currentlyReading */}
+                        <BookShelf fetchBookById ={this.fetchBookById}  book={book} updateBook ={updateBook} books={currentlyReading} shelfHeading ={"Currently Reading"}/> 
+                    {/* want to Read */}
+                        <BookShelf fetchBookById ={this.fetchBookById}  book={book}  updateBook ={updateBook} books = {wantToRead}  shelfHeading ={"Want to Read"}/>
+                    {/* Read */}
+                        <BookShelf  book={book}  updateBook ={updateBook} books ={read} shelfHeading ={" Read"}/>
                 
-               </div>
-               </div>
-               <SearchButton/>
-
+                </div>
             </div>
+               <SearchButton/>
+        </div>
         )
     }
 }

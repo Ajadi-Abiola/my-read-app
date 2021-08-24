@@ -7,17 +7,10 @@ class SearchButton extends React.Component{
             
 
 <div className="open-search">
-                
-                
-              <Link to='search'>
-
+            <Link to='search'>
               <button >Add a book</button>
-             </Link> 
-            </div>
-         
-        )}
-
-                
-            
+            </Link> 
+ </div>   
+ )}          
 }
 export default SearchButton
