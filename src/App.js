@@ -1,5 +1,4 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
 import './App.css'
 import * as BooksAPI from './BooksAPI'
 import Search from './Search'
@@ -46,13 +45,12 @@ class BooksApp extends React.Component {
   fetchAllBooks() {
     BooksAPI.getAll().then((response) => {
 
-      this.setState({ books: response, isLoading: false });
+      this.setState({ books: response, isLoading: false, bookSearch: [] });
     });
   }
   fetchBookById(bookId) {
     BooksAPI.get(bookId).then((response) => {
       this.setState({ book: response })
-
     })
   }
 
@@ -96,11 +94,12 @@ class BooksApp extends React.Component {
           path="/search"
           render={() => (
 
-            <Search books={this.state.bookSearch}
+            <Search
+              books={this.state.bookSearch}
               OnRestoreSearch={this.restoreSearch}
               updateBook={this.updateBook}
               updateSearchQuery={this.updateSearchQuery}
-
+              sortedBooks={ this.state.books }
 
             />
           )} />

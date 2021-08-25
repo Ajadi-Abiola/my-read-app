@@ -1,5 +1,4 @@
-import { string } from "prop-types"
-import React, { Component } from "react"
+import React from "react"
 import{Link} from 'react-router-dom'
 import BookShelf from "./BookShelf"
 
@@ -7,14 +6,14 @@ class Search extends React.Component{
   state={
     query:''
   }
+
  handleSearch = (event)=>{
-  this.props.updateSearchQuery(event.target.value)
-  this.setState({query:event.target.value})
-  
+  this.props.updateSearchQuery(event.target.value);
+  this.setState({query:event.target.value});
  }
     render(){
       const myBooks = this.props.books
-     
+
         return(
         <div>
              <div className="search-books">
@@ -40,7 +39,7 @@ class Search extends React.Component{
                     <h2>
                     {myBooks.error === 'empty query' ? 'Books not found' : myBooks.error}
                     </h2> :
-                        <BookShelf books={this.props.books ? this.props.books :[]} updateBook={this.props.updateBook}/>
+                        <BookShelf books={this.props.books ? this.props.books :[]} updateBook={this.props.updateBook} sortedBooks={ this.props.sortedBooks } />
                     }
               </div>
             </div>
